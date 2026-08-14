@@ -205,6 +205,41 @@
   .add-btn .icon{width:15px;height:15px;stroke-width:1.8}
   .add-btn:hover{background:var(--accent-press);transform:scale(1.04)}
 
+  /* ============================ DEALS ORBIT ============================ */
+  #deals{background:var(--bg-alt)}
+  .deal-orbit{position:relative;width:min(620px,90vw);aspect-ratio:1;margin:8px auto 0}
+  .deal-rings span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none}
+  .deal-rings span:nth-child(1){width:80%;height:80%;border:1px solid var(--line)}
+  .deal-rings span:nth-child(2){width:54%;height:54%;border:1px dashed rgba(0,0,0,.08)}
+  .deal-center{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:6;
+    width:clamp(112px,25%,168px);aspect-ratio:1;border-radius:50%;background:var(--black);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .dc-top{font-size:.62rem;letter-spacing:.24em;color:#8f8f99}
+  .dc-big{font-size:clamp(1.3rem,3.6vw,1.95rem);font-weight:700;letter-spacing:-.02em;line-height:1;margin:3px 0;background:linear-gradient(180deg,#fff,#b9b9c4);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .dc-sub{font-size:.64rem;color:#7db2ff;font-weight:600;letter-spacing:.02em}
+  .deal-ring{position:absolute;inset:0;animation:orbitSpin 46s linear infinite;will-change:transform}
+  @keyframes orbitSpin{to{transform:rotate(360deg)}}
+  .deal-node{position:absolute;transform:translate(-50%,-50%);will-change:transform}
+  .deal-node-spin{
+    position:relative;display:block;width:clamp(90px,15vw,122px);padding:13px 10px 11px;
+    background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);
+    text-align:center;cursor:pointer;animation:orbitSpin 46s linear infinite reverse;will-change:transform;
+    transition:box-shadow .3s var(--ease),border-color .3s,transform .3s var(--ease);
+  }
+  .deal-node-spin:hover{box-shadow:var(--shadow);border-color:transparent;transform:scale(1.06)}
+  .dn-tag{position:absolute;top:8px;right:8px;background:#e0245e;color:#fff;font-size:.6rem;font-weight:700;padding:3px 7px;border-radius:980px;letter-spacing:.01em}
+  .dn-phone{display:flex;justify-content:center;margin-bottom:8px}
+  .dn-phone svg{width:clamp(36px,6.5vw,46px);height:auto}
+  .dn-name{display:block;font-size:.76rem;font-weight:600;line-height:1.2;color:var(--ink)}
+  .dn-price{display:block;margin-top:3px;line-height:1.25}
+  .dn-price s{font-size:.66rem;color:var(--ink-3)}
+  .dn-price b{display:block;font-size:.8rem;font-weight:700;color:var(--accent)}
+  .deal-orbit:hover .deal-ring,.deal-orbit:focus-within .deal-ring,
+  .deal-orbit:hover .deal-node-spin,.deal-orbit:focus-within .deal-node-spin{animation-play-state:paused}
+
   /* ============================ HOW IT WORKS ============================ */
   #how{background:var(--bg-alt)}
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
@@ -337,6 +372,54 @@
   .drawer-foot .btn{width:100%;justify-content:center}
   .drawer-foot .btn[disabled]{opacity:.4;pointer-events:none}
 
+  /* ============================ QUICK VIEW ============================ */
+  #qvOverlay{position:fixed;inset:0;z-index:112;background:rgba(10,10,14,.55);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+  #qvOverlay.open{opacity:1;visibility:visible}
+  #quickview{
+    position:fixed;z-index:113;top:50%;left:50%;width:min(900px,94vw);max-height:92vh;
+    transform:translate(-50%,-46%) scale(.98);opacity:0;visibility:hidden;
+    background:var(--bg);border-radius:28px;box-shadow:var(--shadow-lg);overflow:hidden;
+    transition:opacity .4s var(--ease),transform .4s var(--ease),visibility .4s;
+  }
+  #quickview.open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+  #qvClose{position:absolute;top:16px;right:16px;z-index:5;width:40px;height:40px;border-radius:12px;background:var(--bg);box-shadow:var(--shadow-sm);display:grid;place-items:center;transition:transform .25s var(--ease)}
+  #qvClose:hover{transform:rotate(90deg)}
+  #qvClose .icon{width:20px;height:20px;stroke:var(--ink);stroke-width:1.8}
+  .qv-grid{display:grid;grid-template-columns:1fr 1.05fr;max-height:92vh}
+  .qv-media{background:linear-gradient(160deg,#f2f2f4,#e7e7ea);display:grid;place-items:center;padding:34px}
+  .qv-media svg{width:min(215px,58%);height:auto;filter:drop-shadow(0 30px 42px rgba(0,0,0,.3))}
+  .qv-info{padding:32px 34px;overflow-y:auto}
+  .qv-brand{font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  #qvName{font-size:clamp(1.45rem,3vw,1.95rem);margin:6px 0 8px}
+  .qv-rating{display:flex;align-items:center;gap:7px;font-size:.86rem;color:var(--ink-2);margin-bottom:12px}
+  .qv-rating .stars{color:var(--gold);letter-spacing:1px}
+  #qvDeal{display:inline-block;background:#e0245e;color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.02em;padding:5px 11px;border-radius:980px;margin-bottom:14px}
+  .qv-price{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
+  .qv-price .now{font-size:1.7rem;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+  .qv-price .was{font-size:1.05rem;color:var(--ink-3);text-decoration:line-through}
+  .qv-opt{margin-bottom:20px}
+  .qv-opt-label{font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:10px}
+  .qv-colors{display:flex;gap:11px;flex-wrap:wrap}
+  .qv-swatch{width:30px;height:30px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);transition:transform .2s var(--ease)}
+  .qv-swatch:hover{transform:scale(1.12)}
+  .qv-swatch.sel{box-shadow:inset 0 0 0 1px rgba(0,0,0,.16),0 0 0 2px var(--bg),0 0 0 4px var(--accent)}
+  .qv-storages{display:flex;gap:10px;flex-wrap:wrap}
+  .qv-store{padding:10px 18px;border-radius:14px;border:1px solid var(--line);font-weight:600;font-size:.9rem;color:var(--ink-2);transition:border-color .2s,color .2s,background .2s}
+  .qv-store:hover{border-color:var(--ink-3);color:var(--ink)}
+  .qv-store.sel{border-color:var(--accent);color:var(--accent);background:rgba(0,113,227,.06)}
+  .qv-specs{border-top:1px solid var(--line);padding-top:18px;margin-bottom:26px;display:flex;flex-direction:column;gap:13px}
+  .qv-spec{display:grid;grid-template-columns:22px 82px 1fr;align-items:center;gap:12px;font-size:.88rem}
+  .qs-ic .icon{width:20px;height:20px;stroke:var(--ink)}
+  .qs-k{color:var(--ink-3);font-weight:500}
+  .qs-v{color:var(--ink);font-weight:500}
+  #qvAdd{width:100%;justify-content:center}
+  @media(max-width:720px){
+    .qv-grid{grid-template-columns:1fr;overflow-y:auto}
+    .qv-media{padding:26px}
+    .qv-media svg{width:150px}
+    .qv-info{overflow:visible;padding:26px 24px 28px}
+  }
+
   /* ============================ REVEAL ============================ */
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
   .reveal.in{opacity:1;transform:none}
@@ -371,7 +454,7 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     .reveal{opacity:1;transform:none}
-    .phone,.chip,.orbit,.marquee-track,.step .ic{animation:none!important}
+    .phone,.chip,.orbit,.marquee-track,.step .ic,.deal-ring,.deal-node-spin{animation:none!important}
   }
 </style>
 </head>
@@ -388,6 +471,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#shop">Shop</a></li>
+      <li><a href="#deals">Deals</a></li>
       <li><a href="#how">How it works</a></li>
       <li><a href="#why">Why Hooda</a></li>
       <li><a href="#whatsapp">Concierge</a></li>
@@ -458,6 +542,26 @@
       </div>
     </div>
     <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ============================ DEALS (ORBIT) ============================ -->
+<section class="section" id="deals" style="background:var(--bg-alt);overflow:hidden">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Weekly deals</span>
+      <h2>Deals in orbit.</h2>
+      <p class="lead">Our sharpest genuine-phone prices this week — revolving just for you. Tap any device to drop it straight into your bag.</p>
+    </div>
+    <div class="deal-orbit reveal d1" id="dealOrbit" role="group" aria-label="Rotating carousel of phone deals">
+      <div class="deal-rings" aria-hidden="true"><span></span><span></span></div>
+      <div class="deal-center" aria-hidden="true">
+        <div class="dc-top">HOODA</div>
+        <div class="dc-big">DEALS</div>
+        <div class="dc-sub">up to 15% off</div>
+      </div>
+      <div class="deal-ring" id="dealRing"></div>
+    </div>
   </div>
 </section>
 
@@ -562,6 +666,32 @@
   <span class="fcount" id="fabCount">0</span>
 </a>
 
+<!-- ============================ QUICK VIEW ============================ -->
+<div id="qvOverlay"></div>
+<div id="quickview" role="dialog" aria-modal="true" aria-labelledby="qvName" aria-hidden="true">
+  <button id="qvClose" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="qv-grid">
+    <div class="qv-media" id="qvMedia"></div>
+    <div class="qv-info">
+      <div class="qv-brand" id="qvBrand"></div>
+      <h3 id="qvName"></h3>
+      <div class="qv-rating" id="qvRating"></div>
+      <span id="qvDeal"></span>
+      <div class="qv-price" id="qvPrice"></div>
+      <div class="qv-opt">
+        <div class="qv-opt-label">Colour — <span id="qvColorName"></span></div>
+        <div class="qv-colors" id="qvColors"></div>
+      </div>
+      <div class="qv-opt">
+        <div class="qv-opt-label">Storage <span style="color:var(--ink-3);font-weight:400">· pricing varies</span></div>
+        <div class="qv-storages" id="qvStorages"></div>
+      </div>
+      <div class="qv-specs" id="qvSpecs"></div>
+      <button class="btn btn-primary" id="qvAdd">Add to bag</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============================ CART DRAWER ============================ -->
 <div id="cartOverlay"></div>
 <aside id="drawer" aria-label="Shopping bag" aria-hidden="true">
@@ -626,14 +756,38 @@
 
   /* ---------- PRODUCT DATA ---------- */
   var PRODUCTS = [
-    {name:"iPhone 16 Pro Max", brand:"iphone", price:210000, rating:4.9, badge:"hot", type:"iphone", mark:"iPhone", a:"#1e2647", b:"#3b4574", c:"#6b5b93"},
-    {name:"iPhone 16 Pro",     brand:"iphone", price:175000, rating:4.8, badge:"new", type:"iphone", mark:"iPhone", a:"#241f3a", b:"#463a68", c:"#7a5a86"},
-    {name:"iPhone 16",         brand:"iphone", price:128000, rating:4.7, badge:"new", type:"iphone", mark:"iPhone", a:"#123340", b:"#1f6a72", c:"#3f9e8f"},
-    {name:"iPhone 15",         brand:"iphone", price:99000,  rating:4.6, badge:"",    type:"iphone", mark:"iPhone", a:"#33291f", b:"#7a5a44", c:"#c9926a"},
-    {name:"Galaxy S25 Ultra",  brand:"samsung",price:205000, rating:4.9, badge:"hot", type:"galaxy", mark:"Galaxy", a:"#0c2733", b:"#155a5f", c:"#1f8f8a"},
-    {name:"Galaxy Z Fold6",    brand:"samsung",price:265000, rating:4.8, badge:"new", type:"galaxy", mark:"Galaxy", a:"#181d38", b:"#373d66", c:"#5a5f9e"},
-    {name:"Galaxy S25+",       brand:"samsung",price:158000, rating:4.7, badge:"",    type:"galaxy", mark:"Galaxy", a:"#0f2540", b:"#204f88", c:"#3a80c9"},
-    {name:"Galaxy Z Flip6",    brand:"samsung",price:142000, rating:4.7, badge:"hot", type:"galaxy", mark:"Galaxy", a:"#361230", b:"#772050", c:"#c74f8a"}
+    {name:"iPhone 16 Pro Max", brand:"iphone", price:210000, rating:4.9, badge:"hot", type:"iphone", mark:"iPhone", a:"#1e2647", b:"#3b4574", c:"#6b5b93",
+      specs:{display:'6.9" LTPO OLED · 120Hz', chip:'A18 Pro', camera:'48MP triple · 5× tele', battery:'4685 mAh'},
+      storages:[{s:"256GB",add:0},{s:"512GB",add:25000},{s:"1TB",add:55000}],
+      colors:[{n:"Natural Titanium",c:"#b6b2a8"},{n:"Desert Titanium",c:"#c9a77e"},{n:"Black Titanium",c:"#3a3a3c"},{n:"White Titanium",c:"#e9e6df"}]},
+    {name:"iPhone 16 Pro", brand:"iphone", price:175000, rating:4.8, badge:"new", type:"iphone", mark:"iPhone", a:"#241f3a", b:"#463a68", c:"#7a5a86",
+      specs:{display:'6.3" LTPO OLED · 120Hz', chip:'A18 Pro', camera:'48MP triple · 5× tele', battery:'3582 mAh'},
+      storages:[{s:"128GB",add:0},{s:"256GB",add:12000},{s:"512GB",add:35000},{s:"1TB",add:65000}],
+      colors:[{n:"Natural Titanium",c:"#b6b2a8"},{n:"Desert Titanium",c:"#c9a77e"},{n:"Black Titanium",c:"#3a3a3c"},{n:"White Titanium",c:"#e9e6df"}]},
+    {name:"iPhone 16", brand:"iphone", price:128000, rating:4.7, badge:"new", type:"iphone", mark:"iPhone", a:"#123340", b:"#1f6a72", c:"#3f9e8f",
+      specs:{display:'6.1" OLED · 60Hz', chip:'A18', camera:'48MP dual', battery:'3561 mAh'},
+      storages:[{s:"128GB",add:0},{s:"256GB",add:15000},{s:"512GB",add:40000}],
+      colors:[{n:"Ultramarine",c:"#3a5ba0"},{n:"Teal",c:"#3f9e8f"},{n:"Pink",c:"#f0b8c8"},{n:"Black",c:"#2a2a2c"}]},
+    {name:"iPhone 15", brand:"iphone", price:99000, rating:4.6, badge:"", type:"iphone", mark:"iPhone", a:"#33291f", b:"#7a5a44", c:"#c9926a",
+      specs:{display:'6.1" OLED · 60Hz', chip:'A16 Bionic', camera:'48MP dual', battery:'3349 mAh'},
+      storages:[{s:"128GB",add:0},{s:"256GB",add:15000},{s:"512GB",add:38000}],
+      colors:[{n:"Blue",c:"#7fa8c9"},{n:"Pink",c:"#f0c0cc"},{n:"Green",c:"#a9c9b0"},{n:"Black",c:"#2a2a2c"}]},
+    {name:"Galaxy S25 Ultra", brand:"samsung", price:205000, rating:4.9, badge:"hot", type:"galaxy", mark:"Galaxy", a:"#0c2733", b:"#155a5f", c:"#1f8f8a",
+      specs:{display:'6.9" QHD+ AMOLED · 120Hz', chip:'Snapdragon 8 Elite', camera:'200MP quad · 5× tele', battery:'5000 mAh · S Pen'},
+      storages:[{s:"256GB",add:0},{s:"512GB",add:22000},{s:"1TB",add:50000}],
+      colors:[{n:"Titanium Black",c:"#2b2b30"},{n:"Titanium Gray",c:"#8a8a90"},{n:"Titanium Violet",c:"#7a6f9e"},{n:"Titanium Blue",c:"#3a5f8f"}]},
+    {name:"Galaxy Z Fold6", brand:"samsung", price:265000, rating:4.8, badge:"new", type:"galaxy", mark:"Galaxy", a:"#181d38", b:"#373d66", c:"#5a5f9e",
+      specs:{display:'7.6" Foldable AMOLED · 120Hz', chip:'Snapdragon 8 Gen 3', camera:'50MP triple', battery:'4400 mAh'},
+      storages:[{s:"256GB",add:0},{s:"512GB",add:28000},{s:"1TB",add:60000}],
+      colors:[{n:"Silver Shadow",c:"#9a9a9e"},{n:"Navy",c:"#24304a"},{n:"Pink",c:"#d98fa0"}]},
+    {name:"Galaxy S25+", brand:"samsung", price:158000, rating:4.7, badge:"", type:"galaxy", mark:"Galaxy", a:"#0f2540", b:"#204f88", c:"#3a80c9",
+      specs:{display:'6.7" QHD+ AMOLED · 120Hz', chip:'Snapdragon 8 Elite', camera:'50MP triple', battery:'4900 mAh'},
+      storages:[{s:"256GB",add:0},{s:"512GB",add:20000}],
+      colors:[{n:"Icyblue",c:"#9fc0e0"},{n:"Mint",c:"#a9d9c0"},{n:"Navy",c:"#24304a"}]},
+    {name:"Galaxy Z Flip6", brand:"samsung", price:142000, rating:4.7, badge:"hot", type:"galaxy", mark:"Galaxy", a:"#361230", b:"#772050", c:"#c74f8a",
+      specs:{display:'6.7" Foldable AMOLED · 120Hz', chip:'Snapdragon 8 Gen 3', camera:'50MP dual', battery:'4000 mAh'},
+      storages:[{s:"256GB",add:0},{s:"512GB",add:18000}],
+      colors:[{n:"Mint",c:"#a9d9c0"},{n:"Blue",c:"#7fa8c9"},{n:"Yellow",c:"#e9d07a"},{n:"Silver",c:"#b8b8bc"}]}
   ];
 
   function fmt(n){ return "KES " + n.toLocaleString("en-KE"); }
@@ -655,9 +809,9 @@
         + '<div class="rating"><span class="stars">'+stars(p.rating)+'</span> '+p.rating.toFixed(1)+'</div>'
         + '<div class="price-row">'
         +   '<div class="price">'+fmt(p.price)+'<small>M-Pesa ready</small></div>'
-        +   '<button class="add-btn" aria-label="Add '+p.name+' to bag"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg> Add</button>'
+        +   '<button class="add-btn" aria-label="View '+p.name+' specs and options">View <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>'
         + '</div>';
-      card.querySelector(".add-btn").addEventListener("click", function(){ addToCart(p); });
+      card.querySelector(".add-btn").addEventListener("click", function(){ openQuickview(p, 0); });
       frag.appendChild(card);
     });
     grid.appendChild(frag);
@@ -675,6 +829,43 @@
       });
     });
   });
+
+  /* ---------- DEALS ORBIT ---------- */
+  (function(){
+    var dealRing = document.getElementById("dealRing");
+    if(!dealRing) return;
+    var DEAL_OFF = [10,8,12,15,10,7,9,12];
+    var nodes = PRODUCTS.map(function(p,idx){
+      var off = DEAL_OFF[idx % DEAL_OFF.length];
+      var deal = Math.round(p.price*(1-off/100)/1000)*1000;
+      var node = document.createElement("div");
+      node.className = "deal-node";
+      node.innerHTML =
+        '<button class="deal-node-spin" aria-label="'+p.name+' deal from '+fmt(deal)+', '+off+'% off. View specs and options.">'
+        + '<span class="dn-tag">-'+off+'%</span>'
+        + '<span class="dn-phone">'+phoneSVG(p)+'</span>'
+        + '<span class="dn-name">'+p.name+'</span>'
+        + '<span class="dn-price"><s>'+fmt(p.price)+'</s><b>'+fmt(deal)+'</b></span>'
+        + '</button>';
+      node.querySelector("button").addEventListener("click", function(){ openQuickview(p, off); });
+      dealRing.appendChild(node);
+      return node;
+    });
+    function placeNodes(){
+      var w = dealRing.clientWidth, h = dealRing.clientHeight, R = w*0.4;
+      nodes.forEach(function(node,idx){
+        var ang = (idx/nodes.length)*Math.PI*2 - Math.PI/2;
+        node.style.left = (w/2 + R*Math.cos(ang)) + "px";
+        node.style.top  = (h/2 + R*Math.sin(ang)) + "px";
+      });
+    }
+    placeNodes();
+    var rzRaf = null;
+    window.addEventListener("resize", function(){
+      if(rzRaf) return;
+      rzRaf = requestAnimationFrame(function(){ rzRaf = null; placeNodes(); });
+    }, {passive:true});
+  })();
 
   /* ---------- HERO PHONES ---------- */
   document.getElementById("phones").innerHTML =
@@ -716,11 +907,11 @@
   function cartQty(){ return cart.reduce(function(s,i){return s+i.qty;},0); }
   function cartTotal(){ return cart.reduce(function(s,i){return s+i.price*i.qty;},0); }
 
-  function addToCart(p){
-    var line = cart.filter(function(i){return i.name===p.name;})[0];
-    if(line){ line.qty++; } else { cart.push({name:p.name, price:p.price, svg:phoneSVG(p), qty:1}); }
+  function addLine(name, price, svg){
+    var line = cart.filter(function(i){return i.name===name;})[0];
+    if(line){ line.qty++; } else { cart.push({name:name, price:price, svg:svg, qty:1}); }
     updateCart(true);
-    toast("Added " + p.name + " to your bag");
+    toast("Added " + name + " to your bag");
   }
   function changeQty(name, d){
     var line = cart.filter(function(i){return i.name===name;})[0];
@@ -791,6 +982,80 @@
     toast("Order placed — confirm the M-Pesa prompt on your phone");
   });
   updateCart(false);
+
+  /* ---------- QUICK VIEW (specs + configurable pricing) ---------- */
+  var qv = document.getElementById("quickview");
+  var qvOverlay = document.getElementById("qvOverlay");
+  var qvState = null, qvLastFocus = null;
+  var SPEC_ICONS = {
+    display:'<rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9.5 18h5"/>',
+    chip:'<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M4 10h3M4 14h3M17 10h3M17 14h3M10 4v3M14 4v3M10 17v3M14 17v3"/>',
+    camera:'<rect x="3" y="7.5" width="18" height="12.5" rx="2.5"/><circle cx="12" cy="13.7" r="3.6"/><path d="M8 7.5l1.4-2h5.2L16 7.5"/>',
+    battery:'<rect x="3" y="8" width="16" height="9" rx="2.5"/><path d="M21 11v3"/><rect x="5.5" y="10.5" width="5" height="4" rx="1" fill="currentColor" stroke="none"/>'
+  };
+  function specRows(s){
+    var rows=[["display","Display",s.display],["chip","Chip",s.chip],["camera","Camera",s.camera],["battery","Battery",s.battery]];
+    return rows.map(function(r){
+      return '<div class="qv-spec"><span class="qs-ic"><svg class="icon" viewBox="0 0 24 24">'+SPEC_ICONS[r[0]]+'</svg></span><span class="qs-k">'+r[1]+'</span><span class="qs-v">'+r[2]+'</span></div>';
+    }).join("");
+  }
+  function qvBase(){ return qvState.p.price + qvState.p.storages[qvState.storage].add; }
+  function qvFinal(base){ return qvState.off>0 ? Math.round(base*(1-qvState.off/100)/1000)*1000 : base; }
+  function recalcQv(){
+    var base=qvBase(), fin=qvFinal(base);
+    document.getElementById("qvPrice").innerHTML =
+      (qvState.off>0 ? '<span class="was">'+fmt(base)+'</span>' : '') + '<span class="now">'+fmt(fin)+'</span>';
+  }
+  function openQuickview(p, off){
+    qvState = {p:p, off:off||0, storage:0, color:0};
+    document.getElementById("qvMedia").innerHTML = phoneSVG(p);
+    document.getElementById("qvBrand").textContent = p.brand==="iphone" ? "Apple" : "Samsung";
+    document.getElementById("qvName").textContent = p.name;
+    document.getElementById("qvRating").innerHTML = '<span class="stars">'+stars(p.rating)+'</span> '+p.rating.toFixed(1)+' rating';
+    var deal=document.getElementById("qvDeal");
+    if(qvState.off>0){ deal.textContent="Weekly deal · −"+qvState.off+"% applied"; deal.style.display="inline-block"; }
+    else { deal.style.display="none"; }
+    document.getElementById("qvColors").innerHTML = p.colors.map(function(col,i){
+      return '<button class="qv-swatch'+(i===0?" sel":"")+'" data-i="'+i+'" title="'+col.n+'" aria-label="Colour: '+col.n+'" style="--sw:'+col.c+'"></button>';
+    }).join("");
+    document.getElementById("qvColorName").textContent = p.colors[0].n;
+    document.getElementById("qvStorages").innerHTML = p.storages.map(function(st,i){
+      return '<button class="qv-store'+(i===0?" sel":"")+'" data-i="'+i+'">'+st.s+'</button>';
+    }).join("");
+    document.getElementById("qvSpecs").innerHTML = specRows(p.specs);
+    recalcQv();
+    qvLastFocus = document.activeElement;
+    qv.classList.add("open"); qvOverlay.classList.add("open");
+    qv.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+    document.getElementById("qvClose").focus();
+  }
+  function closeQuickview(){
+    qv.classList.remove("open"); qvOverlay.classList.remove("open");
+    qv.setAttribute("aria-hidden","true"); document.body.style.overflow="";
+    if(qvLastFocus && qvLastFocus.focus) qvLastFocus.focus();
+  }
+  document.getElementById("qvColors").addEventListener("click", function(e){
+    var b=e.target.closest(".qv-swatch"); if(!b) return;
+    qvState.color = +b.getAttribute("data-i");
+    this.querySelectorAll(".qv-swatch").forEach(function(x){ x.classList.remove("sel"); });
+    b.classList.add("sel");
+    document.getElementById("qvColorName").textContent = qvState.p.colors[qvState.color].n;
+  });
+  document.getElementById("qvStorages").addEventListener("click", function(e){
+    var b=e.target.closest(".qv-store"); if(!b) return;
+    qvState.storage = +b.getAttribute("data-i");
+    this.querySelectorAll(".qv-store").forEach(function(x){ x.classList.remove("sel"); });
+    b.classList.add("sel");
+    recalcQv();
+  });
+  document.getElementById("qvAdd").addEventListener("click", function(){
+    var p=qvState.p, st=p.storages[qvState.storage], col=p.colors[qvState.color];
+    addLine(p.name+" · "+st.s+" · "+col.n, qvFinal(qvBase()), phoneSVG(p));
+    closeQuickview(); openCart();
+  });
+  document.getElementById("qvClose").addEventListener("click", closeQuickview);
+  qvOverlay.addEventListener("click", closeQuickview);
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape" && qv.classList.contains("open")) closeQuickview(); });
 
   /* ---------- TOAST ---------- */
   var toastWrap = document.getElementById("toast-wrap");
