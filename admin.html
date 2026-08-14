@@ -294,7 +294,8 @@
 
   /* ============ STORE ============ */
   var KEY = "hooda_portal_v2";
-  var bc = ("BroadcastChannel" in window) ? new BroadcastChannel("hooda_portal2") : null;
+  var bc = null;
+  try{ if("BroadcastChannel" in window) bc = new BroadcastChannel("hooda_portal2"); }catch(e){ bc = null; }
 
   function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
   function weightedIndex(w){ var t=w.reduce(function(s,x){return s+x;},0), r=Math.random()*t; for(var i=0;i<w.length;i++){ r-=w[i]; if(r<=0) return i; } return w.length-1; }
