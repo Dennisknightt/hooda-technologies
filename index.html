@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Hooda Technologies — Kenya's premium destination for 100% genuine iPhone & Samsung Galaxy. IMEI-verified, M-Pesa checkout, same-day Nairobi delivery, 1-year warranty." />
+<meta name="theme-color" content="#06060a" />
+<title>Hooda Technologies — Premium iPhone & Galaxy, Kenya</title>
+<style>
+  /* ============================ TOKENS ============================ */
+  :root{
+    --bg:#ffffff;
+    --bg-alt:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#6e6e73;
+    --ink-3:#86868b;
+    --line:rgba(0,0,0,.10);
+    --black:#06060a;
+    --accent:#0071e3;      /* signature blue */
+    --accent-press:#0060c0;
+    --gold:#b08d57;        /* subtle premium metal */
+    --wa:#25d366;
+    --wa-deep:#0f7a4e;
+    --radius:20px;
+    --radius-lg:30px;
+    --shadow-xs:0 1px 3px rgba(0,0,0,.05);
+    --shadow-sm:0 6px 20px -10px rgba(0,0,0,.16);
+    --shadow:0 26px 60px -30px rgba(0,0,0,.32);
+    --shadow-lg:0 50px 110px -50px rgba(0,0,0,.6);
+    --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif;
+    --ease:cubic-bezier(.22,.75,.24,1);
+  }
+
+  /* ============================ RESET ============================ */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font);background:var(--bg);color:var(--ink);
+    line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;letter-spacing:-.01em;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{list-style:none}
+  ::selection{background:rgba(0,113,227,.18)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+  h1,h2,h3,h4{font-weight:600;letter-spacing:-.03em;line-height:1.06}
+  h2{font-size:clamp(2rem,4.4vw,3.4rem)}
+  .icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+  .section{padding:clamp(70px,10vw,130px) 0;position:relative}
+  .wrap{width:min(1200px,90vw);margin:0 auto;position:relative}
+  .eyebrow{
+    display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:20px;
+  }
+  .eyebrow.muted{color:var(--ink-3)}
+  .lead{color:var(--ink-2);font-size:clamp(1.05rem,1.5vw,1.28rem);font-weight:400;max-width:56ch;letter-spacing:-.01em}
+  .center{text-align:center}
+  .center .lead{margin-inline:auto}
+  .sec-head{margin-bottom:clamp(44px,6vw,72px)}
+
+  /* ============================ BUTTONS ============================ */
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;font-weight:500;font-size:1rem;
+    padding:13px 26px;border-radius:980px;transition:transform .35s var(--ease),background .25s,box-shadow .3s,color .25s;
+    white-space:nowrap;letter-spacing:-.01em;
+  }
+  .btn .icon{width:18px;height:18px}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-press);transform:translateY(-2px)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{background:#000;transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+  .btn-ghost:hover{box-shadow:inset 0 0 0 1px rgba(0,0,0,.28);transform:translateY(-2px)}
+  .btn-ghost.on-dark{color:#f5f5f7;box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+  .btn-ghost.on-dark:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+  .btn-wa{background:var(--wa);color:#04381f}
+  .btn-wa:hover{background:#2ee06f;transform:translateY(-2px)}
+  .link-arrow{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:500}
+  .link-arrow .icon{width:16px;height:16px;transition:transform .3s var(--ease)}
+  .link-arrow:hover .icon{transform:translateX(4px)}
+
+  /* ============================ SCROLL PROGRESS ============================ */
+  #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:100;background:var(--accent);transition:width .1s linear}
+
+  /* ============================ NAV ============================ */
+  nav{
+    position:sticky;top:0;z-index:90;
+    background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line);
+  }
+  .nav-inner{width:min(1200px,90vw);margin:0 auto;display:flex;align-items:center;gap:22px;height:56px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:600;font-size:1.12rem;letter-spacing:-.02em}
+  .logo .mark{
+    width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;
+    background:linear-gradient(145deg,#2b2b30,#0a0a0c);box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+  }
+  .logo .mark svg{width:16px;height:16px}
+  .logo b{font-weight:600}
+  .logo span.dot{color:var(--accent)}
+  .nav-links{display:flex;gap:30px;margin-left:14px}
+  .nav-links a{font-size:.92rem;font-weight:400;color:var(--ink-2);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+  .cart-btn{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;transition:background .2s}
+  .cart-btn:hover{background:var(--bg-alt)}
+  .cart-btn .icon{width:21px;height:21px;stroke:var(--ink)}
+  .cart-count{
+    position:absolute;top:2px;right:2px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;
+    background:var(--accent);color:#fff;font-size:.66rem;font-weight:700;display:none;place-items:center;letter-spacing:0;
+  }
+  .cart-count.show{display:grid}
+  .cart-count.bump{animation:bump .4s var(--ease)}
+  @keyframes bump{0%,100%{transform:scale(1)}45%{transform:scale(1.45)}}
+  .nav-cta{font-size:.9rem;padding:8px 18px}
+  .nav-toggle{display:none;width:40px;height:40px;border-radius:12px;place-items:center}
+  .nav-toggle .icon{width:22px;height:22px;stroke:var(--ink)}
+
+  /* ============================ HERO ============================ */
+  .hero{
+    background:radial-gradient(120% 90% at 50% -10%,#20202b 0%,#0c0c11 46%,#050507 100%);
+    color:#f5f5f7;overflow:hidden;padding:clamp(64px,8vw,104px) 0 clamp(50px,7vw,92px);
+  }
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 40% at 72% 42%,rgba(0,113,227,.28),transparent 70%);pointer-events:none}
+  .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center;position:relative;z-index:2}
+  .hero .eyebrow{color:#7db2ff}
+  .hero h1{font-size:clamp(2.6rem,6.4vw,5rem);letter-spacing:-.04em;font-weight:600}
+  .hero h1 .shine{
+    background:linear-gradient(180deg,#fff,#c9c9d2);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{color:#b4b4be;margin:26px 0 34px;font-size:clamp(1.08rem,1.6vw,1.32rem)}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .trust{display:flex;align-items:center;gap:10px;margin-top:26px;color:#a0a0aa;font-size:.92rem}
+  .hero .trust .stars{color:var(--gold);letter-spacing:2px}
+  .hero-stats{display:flex;gap:46px;margin-top:44px;flex-wrap:wrap;padding-top:30px;border-top:1px solid rgba(255,255,255,.1)}
+  .hero-stats .num{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:600;letter-spacing:-.03em;color:#fff}
+  .hero-stats .lbl{font-size:.82rem;color:#8f8f99;margin-top:2px;letter-spacing:.01em}
+
+  /* hero stage */
+  .stage{position:relative;height:min(600px,84vw);display:grid;place-items:center;perspective:1400px}
+  .glow{position:absolute;width:70%;height:60%;border-radius:50%;background:radial-gradient(circle,rgba(120,140,255,.35),transparent 70%);filter:blur(30px)}
+  .orbit{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.08);will-change:transform}
+  .orbit.o1{width:400px;height:400px;animation:spin 44s linear infinite}
+  .orbit.o2{width:540px;height:540px;border-style:dashed;border-color:rgba(255,255,255,.06);animation:spin 80s linear infinite reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .phones{position:relative;transform-style:preserve-3d;will-change:transform;transition:transform .3s var(--ease)}
+  .phone{position:absolute;filter:drop-shadow(0 40px 60px rgba(0,0,0,.55));will-change:transform}
+  .phone svg{width:210px;height:auto}
+  .phone.ip{left:-118px;top:-224px;transform:translateZ(60px) rotate(-6deg);z-index:3;animation:float1 7s ease-in-out infinite}
+  .phone.sg{left:-84px;top:-190px;transform:translateZ(20px) rotate(8deg);z-index:2;animation:float2 8.4s ease-in-out infinite}
+  @keyframes float1{0%,100%{transform:translateZ(60px) rotate(-6deg) translateY(0)}50%{transform:translateZ(60px) rotate(-6deg) translateY(-16px)}}
+  @keyframes float2{0%,100%{transform:translateZ(20px) rotate(8deg) translateY(0)}50%{transform:translateZ(20px) rotate(8deg) translateY(-22px)}}
+  .chip{
+    position:absolute;z-index:6;display:flex;align-items:center;gap:7px;white-space:nowrap;
+    padding:9px 15px;border-radius:980px;font-size:.8rem;font-weight:500;color:#f0f0f5;
+    background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 30px -12px rgba(0,0,0,.6);
+  }
+  .chip .icon{width:15px;height:15px;stroke:var(--wa);stroke-width:2}
+  .chip.c1{top:10%;left:-4%;animation:float1 6s ease-in-out infinite}
+  .chip.c2{top:44%;right:-8%;animation:float2 6.6s ease-in-out infinite}
+  .chip.c3{bottom:9%;left:4%;animation:float1 7.4s ease-in-out infinite}
+
+  /* ============================ MARQUEE ============================ */
+  .marquee{background:var(--black);color:#f5f5f7;padding:17px 0;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
+  .marquee-track{display:flex;width:max-content;animation:scroll-x 40s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-item{display:flex;align-items:center;gap:22px;padding:0 22px;font-size:.78rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c7c7cf;white-space:nowrap}
+  .marquee-item .sep{color:var(--gold)}
+  @keyframes scroll-x{to{transform:translateX(-50%)}}
+
+  /* ============================ PRODUCTS ============================ */
+  #shop{background:var(--bg)}
+  .filter-tabs{display:inline-flex;gap:4px;padding:5px;border-radius:980px;background:var(--bg-alt);margin:0 auto 52px;justify-content:center}
+  .tabs-wrap{display:flex;justify-content:center}
+  .tab{padding:9px 24px;border-radius:980px;font-size:.92rem;font-weight:500;color:var(--ink-2);transition:color .25s,background .25s,box-shadow .25s}
+  .tab:hover{color:var(--ink)}
+  .tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-xs)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .card{
+    background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-lg);padding:22px;position:relative;overflow:hidden;
+    transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .4s;
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:transparent}
+  .card .badge{position:absolute;top:20px;right:20px;z-index:4;font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:980px}
+  .badge.new{color:var(--accent);background:rgba(0,113,227,.1)}
+  .badge.hot{color:var(--gold);background:rgba(176,141,87,.12)}
+  .card .stagebox{height:230px;border-radius:20px;background:var(--bg-alt);display:grid;place-items:center;margin-bottom:20px;overflow:hidden}
+  .card .stagebox svg{width:118px;height:auto;transition:transform .55s var(--ease)}
+  .card:hover .stagebox svg{transform:scale(1.08) translateY(-4px)}
+  .card .brand{font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+  .card h3{font-size:1.24rem;font-weight:600;margin-bottom:8px}
+  .card .rating{display:flex;align-items:center;gap:7px;font-size:.85rem;color:var(--ink-2);margin-bottom:16px}
+  .card .rating .stars{color:var(--gold);letter-spacing:1px}
+  .card .price-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+  .card .price{font-size:1.16rem;font-weight:600;letter-spacing:-.02em}
+  .card .price small{display:block;font-size:.72rem;font-weight:400;color:var(--ink-3);letter-spacing:0;margin-top:2px}
+  .add-btn{background:var(--accent);color:#fff;padding:9px 17px;border-radius:980px;font-size:.86rem;font-weight:500;display:flex;align-items:center;gap:6px;transition:transform .25s var(--ease),background .2s}
+  .add-btn .icon{width:15px;height:15px;stroke-width:1.8}
+  .add-btn:hover{background:var(--accent-press);transform:scale(1.04)}
+
+  /* ============================ HOW IT WORKS ============================ */
+  #how{background:var(--bg-alt)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .step{position:relative}
+  .step .ic{width:56px;height:56px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow-xs);margin-bottom:22px}
+  .step .ic .icon{width:26px;height:26px;stroke:var(--ink)}
+  .step .n{font-size:.74rem;font-weight:600;letter-spacing:.14em;color:var(--accent);margin-bottom:8px}
+  .step h3{font-size:1.18rem;margin-bottom:8px}
+  .step p{color:var(--ink-2);font-size:.96rem}
+  .step::after{content:"";position:absolute;top:28px;left:70px;right:-12px;height:1px;background:var(--line)}
+  .step:last-child::after{display:none}
+
+  /* ============================ STATS BAND ============================ */
+  .stats-band{
+    background:var(--black);border-radius:var(--radius-lg);padding:clamp(48px,7vw,84px) clamp(30px,5vw,60px);
+    color:#f5f5f7;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);
+  }
+  .stats-band::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 15% 0%,rgba(0,113,227,.22),transparent 60%),radial-gradient(50% 120% at 90% 100%,rgba(176,141,87,.16),transparent 60%);pointer-events:none}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;position:relative;z-index:2}
+  .stat{padding:6px 10px;position:relative}
+  .stat + .stat::before{content:"";position:absolute;left:-15px;top:12%;height:76%;width:1px;background:rgba(255,255,255,.12)}
+  .stat .num{font-size:clamp(2.3rem,4.6vw,3.5rem);font-weight:600;letter-spacing:-.03em;line-height:1}
+  .stat .lbl{color:#9a9aa4;margin-top:10px;font-size:.94rem}
+
+  /* ============================ WHY ============================ */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .why{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-lg);padding:38px 32px;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .4s}
+  .why:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:transparent}
+  .why .ic{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;margin-bottom:24px;background:var(--bg-alt)}
+  .why .ic .icon{width:26px;height:26px;stroke:var(--ink)}
+  .why h3{font-size:1.34rem;margin-bottom:12px}
+  .why p{color:var(--ink-2)}
+
+  /* ============================ WHATSAPP ============================ */
+  #whatsapp{background:var(--bg-alt)}
+  .wa-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .wa-copy .eyebrow{color:var(--wa-deep)}
+  .wa-copy ul.perks{margin:28px 0 32px;display:flex;flex-direction:column;gap:15px}
+  .wa-copy ul.perks li{display:flex;align-items:center;gap:13px;color:var(--ink);font-size:1.02rem}
+  .wa-copy ul.perks li .tick{width:26px;height:26px;border-radius:50%;background:var(--wa);color:#04381f;display:grid;place-items:center;flex:none}
+  .wa-copy ul.perks li .tick .icon{width:15px;height:15px;stroke:#04381f;stroke-width:2.4}
+  .phone-frame{
+    width:min(340px,88vw);margin-inline:auto;background:#0b0f12;border-radius:44px;padding:12px;
+    box-shadow:var(--shadow-lg),inset 0 0 0 1px rgba(255,255,255,.06);
+  }
+  .wa-head{background:#1f2c33;color:#fff;border-radius:34px 34px 0 0;padding:15px 18px;display:flex;align-items:center;gap:12px}
+  .wa-head .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(145deg,#2b2b30,#0a0a0c);display:grid;place-items:center;flex:none}
+  .wa-head .av .icon{width:20px;height:20px;stroke:#fff}
+  .wa-head .nm{font-weight:600;font-size:.95rem}
+  .wa-head .st{font-size:.72rem;color:#9fd9b6;display:flex;align-items:center;gap:5px}
+  .wa-head .st::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--wa)}
+  .wa-body{background:#0d1317;border-radius:0 0 34px 34px;padding:18px 16px;min-height:344px;display:flex;flex-direction:column;gap:9px;justify-content:flex-end}
+  .msg{max-width:82%;padding:9px 13px;border-radius:16px;font-size:.86rem;line-height:1.45;opacity:0;transform:translateY(10px) scale(.98);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+  .msg.show{opacity:1;transform:none}
+  .msg.them{background:#20303a;color:#eaf2f2;align-self:flex-start;border-bottom-left-radius:5px}
+  .msg.me{background:#0071e3;color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+  .msg .t{display:block;font-size:.62rem;opacity:.6;text-align:right;margin-top:3px}
+  .typing{align-self:flex-start;background:#20303a;padding:13px 16px;border-radius:16px;display:flex;gap:5px;opacity:0;transition:opacity .3s}
+  .typing.show{opacity:1}
+  .typing i{width:7px;height:7px;border-radius:50%;background:#7a8a92;animation:blink 1.3s infinite}
+  .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+  /* ============================ FOOTER ============================ */
+  footer{background:var(--black);color:#c7c7cf}
+  .foot-inner{width:min(1200px,90vw);margin:0 auto;padding:74px 0 34px}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:40px}
+  footer .logo{color:#fff}
+  footer .logo .mark{background:#fff;color:#0a0a0c}
+  footer p.about{color:#8f8f99;margin-top:16px;max-width:34ch;font-size:.94rem;line-height:1.6}
+  .foot-col h4{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#8f8f99;margin-bottom:16px;font-weight:600}
+  .foot-col a{display:block;color:#c7c7cf;margin-bottom:11px;font-size:.94rem;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .pay{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+  .pay .p{border:1px solid rgba(255,255,255,.14);border-radius:9px;padding:7px 13px;font-size:.78rem;font-weight:500;color:#e5e5ea}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:52px;padding-top:26px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#77777f;font-size:.82rem}
+
+  /* ============================ FAB ============================ */
+  .fab{position:fixed;right:24px;bottom:24px;z-index:85;display:flex;align-items:center;gap:10px;background:var(--wa);color:#04381f;font-weight:600;font-size:.94rem;padding:14px 20px;border-radius:980px;box-shadow:0 20px 44px -16px rgba(15,122,78,.7);transition:transform .3s var(--ease),box-shadow .3s}
+  .fab:hover{transform:translateY(-3px)}
+  .fab .icon{width:22px;height:22px;stroke:none;fill:#04381f}
+  .fab .fcount{min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:#04381f;color:#fff;font-size:.68rem;font-weight:700;display:none;place-items:center}
+  .fab .fcount.show{display:grid}
+
+  /* ============================ TOAST ============================ */
+  #toast-wrap{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:120;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
+  .toast{display:flex;align-items:center;gap:12px;background:rgba(20,20,24,.92);backdrop-filter:blur(16px);color:#fff;padding:13px 20px 13px 14px;border-radius:15px;box-shadow:var(--shadow);font-size:.92rem;font-weight:450;transform:translateY(20px);opacity:0;transition:transform .4s var(--ease),opacity .4s;border:1px solid rgba(255,255,255,.08)}
+  .toast.show{transform:none;opacity:1}
+  .toast .tk{width:26px;height:26px;border-radius:50%;background:var(--wa);display:grid;place-items:center;flex:none}
+  .toast .tk .icon{width:15px;height:15px;stroke:#04381f;stroke-width:2.6}
+
+  /* ============================ CART DRAWER ============================ */
+  #cartOverlay{position:fixed;inset:0;z-index:110;background:rgba(10,10,14,.4);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+  #cartOverlay.open{opacity:1;visibility:visible}
+  #drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,94vw);z-index:111;background:var(--bg);box-shadow:-30px 0 80px -30px rgba(0,0,0,.4);transform:translateX(100%);transition:transform .5s var(--ease);display:flex;flex-direction:column}
+  #drawer.open{transform:none}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:26px 26px 20px;border-bottom:1px solid var(--line)}
+  .drawer-head h3{font-size:1.3rem;font-weight:600}
+  .drawer-head h3 span{color:var(--ink-3);font-weight:400}
+  .drawer-close{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;transition:background .2s}
+  .drawer-close:hover{background:var(--bg-alt)}
+  .drawer-close .icon{width:20px;height:20px;stroke:var(--ink);stroke-width:1.8}
+  .drawer-items{flex:1;overflow-y:auto;padding:20px 26px;display:flex;flex-direction:column;gap:14px}
+  .drawer-empty{margin:auto;text-align:center;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px 10px}
+  .drawer-empty .eic{width:64px;height:64px;border-radius:18px;background:var(--bg-alt);display:grid;place-items:center}
+  .drawer-empty .eic .icon{width:30px;height:30px;stroke:var(--ink-3)}
+  .ci{display:flex;gap:15px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line);animation:ciIn .4s var(--ease)}
+  .ci:last-child{border-bottom:none}
+  @keyframes ciIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+  .ci .thumb{width:56px;height:76px;border-radius:12px;background:var(--bg-alt);display:grid;place-items:center;flex:none;overflow:hidden}
+  .ci .thumb svg{width:32px;height:auto}
+  .ci .info{flex:1;min-width:0}
+  .ci .info h4{font-size:.98rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ci .info .pr{font-size:.84rem;color:var(--ink-2);margin-top:2px}
+  .ci .qty{display:inline-flex;align-items:center;gap:2px;margin-top:9px;border:1px solid var(--line);border-radius:980px;padding:2px}
+  .ci .qty button{width:26px;height:26px;border-radius:50%;font-size:1.05rem;font-weight:500;display:grid;place-items:center;color:var(--ink-2);transition:background .2s,color .2s}
+  .ci .qty button:hover{background:var(--bg-alt);color:var(--ink)}
+  .ci .qty span{min-width:26px;text-align:center;font-size:.88rem;font-weight:600}
+  .ci .right{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+  .ci .lt{font-weight:600;font-size:.94rem;white-space:nowrap}
+  .ci .rm{color:var(--ink-3);transition:color .2s;display:grid;place-items:center}
+  .ci .rm:hover{color:#e0245e}
+  .ci .rm .icon{width:17px;height:17px;stroke-width:1.6}
+  .drawer-foot{padding:22px 26px 26px;border-top:1px solid var(--line)}
+  .sum-row{display:flex;justify-content:space-between;align-items:center;font-size:.94rem;color:var(--ink-2);margin-bottom:10px}
+  .sum-row .free{color:var(--wa-deep);font-weight:600}
+  .sum-row.total{font-size:1.32rem;font-weight:600;color:var(--ink);margin:16px 0 6px}
+  .sum-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:.8rem;color:var(--ink-3);margin:8px 0 16px}
+  .sum-note .icon{width:15px;height:15px;stroke:var(--wa-deep)}
+  .drawer-foot .btn{width:100%;justify-content:center}
+  .drawer-foot .btn[disabled]{opacity:.4;pointer-events:none}
+
+  /* ============================ REVEAL ============================ */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+
+  /* ============================ RESPONSIVE ============================ */
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:0}
+    .stage{order:-1;height:min(480px,92vw);margin-bottom:10px}
+    .phone svg{width:180px}
+    .phone.ip{left:-100px;top:-192px}.phone.sg{left:-72px;top:-162px}
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(2,1fr);gap:36px 24px}
+    .step::after{display:none}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:40px 30px}
+    .stat + .stat::before{display:none}
+    .why-grid{grid-template-columns:1fr}
+    .wa-grid{grid-template-columns:1fr;gap:44px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .nav-links,.nav-cta{display:none}
+    .nav-toggle{display:grid}
+  }
+  @media(max-width:600px){
+    .grid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .hero-stats{gap:28px}
+    .fab .txt{display:none}.fab{padding:15px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+    .phone,.chip,.orbit,.marquee-track,.step .ic{animation:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ============================ NAV ============================ -->
+<nav aria-label="Primary">
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="Hooda Technologies home">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg></span>
+      <b>HOODA<span class="dot">.</span></b>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#why">Why Hooda</a></li>
+      <li><a href="#whatsapp">Concierge</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-btn" id="cartBtn" aria-label="Open bag">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6.5 8h11l-.9 11.2a1.5 1.5 0 0 1-1.5 1.4H8.9a1.5 1.5 0 0 1-1.5-1.4L6.5 8z"/><path d="M9 8V6.2a3 3 0 0 1 6 0V8"/></svg>
+        <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+      </button>
+      <a href="#shop" class="btn btn-primary nav-cta">Shop now</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<header class="section hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy reveal in">
+        <span class="eyebrow">Premium Phones · Nairobi, Kenya</span>
+        <h1><span class="shine">The finest iPhone<br>&amp; Galaxy,</span> delivered.</h1>
+        <p class="lead">Only 100% genuine, IMEI-verified devices — sealed, warrantied and delivered across Nairobi the same day. Pay effortlessly with M-Pesa.</p>
+        <div class="hero-ctas">
+          <a href="#shop" class="btn btn-primary">Browse phones <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#whatsapp" class="btn btn-ghost on-dark">Order on WhatsApp</a>
+        </div>
+        <div class="trust">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span>4.9 · 3,200+ verified customers</span>
+        </div>
+        <div class="hero-stats" id="heroStats">
+          <div><div class="num" data-count="12000" data-suffix="+">0</div><div class="lbl">Phones delivered</div></div>
+          <div><div class="num" data-count="100" data-suffix="%">0</div><div class="lbl">Genuine, always</div></div>
+          <div><div class="num" data-count="24" data-suffix="h">0</div><div class="lbl">Same-day dispatch</div></div>
+        </div>
+      </div>
+
+      <div class="stage" id="stage" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="orbit o1"></div>
+        <div class="orbit o2"></div>
+        <div class="phones" id="phones"></div>
+        <div class="chip c1"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> M-Pesa ready</div>
+        <div class="chip c2"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> Same-day delivery</div>
+        <div class="chip c3"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> 1-year warranty</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ MARQUEE ============================ -->
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+<!-- ============================ PRODUCTS ============================ -->
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">The Collection</span>
+      <h2>Choose your device.</h2>
+      <p class="lead">Fresh, sealed stock across Apple and Samsung flagships — every unit IMEI-verified and warranty-backed.</p>
+    </div>
+    <div class="tabs-wrap reveal d1">
+      <div class="filter-tabs" role="tablist" aria-label="Filter by brand">
+        <button class="tab active" role="tab" aria-selected="true" data-filter="all">All</button>
+        <button class="tab" role="tab" aria-selected="false" data-filter="iphone">iPhone</button>
+        <button class="tab" role="tab" aria-selected="false" data-filter="samsung">Samsung</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ============================ HOW ============================ -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>Effortless, from tap to doorstep.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal d1"><div class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M9 11V6.5a2 2 0 0 1 4 0V12"/><path d="M13 12V9.5a2 2 0 0 1 4 0V15a5 5 0 0 1-5 5 4.5 4.5 0 0 1-3.7-1.9l-2.6-3.7a1.8 1.8 0 0 1 2.8-2.2L11 14"/></svg></div><div class="n">STEP 01</div><h3>Choose</h3><p>Browse genuine iPhone &amp; Galaxy models with clear, honest KES pricing.</p></div>
+      <div class="step reveal d2"><div class="ic"><svg class="icon" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M10.5 18h3"/></svg></div><div class="n">STEP 02</div><h3>Pay with M-Pesa</h3><p>An instant STK-push lands on your phone — confirm the prompt and you're done.</p></div>
+      <div class="step reveal d3"><div class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 4v10l-8 4-8-4V7l8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg></div><div class="n">STEP 03</div><h3>We prepare it</h3><p>Sealed box, IMEI verified, warranty card enclosed — packed with care.</p></div>
+      <div class="step reveal d4"><div class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div><div class="n">STEP 04</div><h3>Same-day delivery</h3><p>Delivered anywhere in Nairobi the very same day — tracked to your door.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STATS ============================ -->
+<section class="section" style="background:var(--bg)">
+  <div class="wrap reveal">
+    <div class="stats-band">
+      <div class="stats-grid" id="bandStats">
+        <div class="stat"><div class="num" data-count="12000" data-suffix="+">0</div><div class="lbl">Genuine phones sold</div></div>
+        <div class="stat"><div class="num" data-count="3200" data-suffix="+">0</div><div class="lbl">Five-star reviews</div></div>
+        <div class="stat"><div class="num" data-count="47" data-suffix="min">0</div><div class="lbl">Average delivery time</div></div>
+        <div class="stat"><div class="num" data-count="100" data-suffix="%">0</div><div class="lbl">IMEI-verified stock</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHY ============================ -->
+<section class="section" id="why" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Why Hooda</span>
+      <h2>A standard you can trust.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why reveal d1"><div class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.4 2.4L16 9.4"/></svg></div><h3>100% genuine</h3><p>Every device is sealed, brand-new and IMEI-verified against manufacturer records. Authentic or your money back — guaranteed.</p></div>
+      <div class="why reveal d2"><div class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 13.5-3.3L20 8"/><path d="M20 15a8 8 0 0 1-13.5 3.3L4 16"/><path d="M20 4v4h-4M4 20v-4h4"/></svg></div><h3>Instant trade-in</h3><p>Bring your current phone for a fair, on-the-spot valuation and apply it directly to your new device. Seamless and transparent.</p></div>
+      <div class="why reveal d3"><div class="ic"><svg class="icon" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12"/><path d="M12 8S9.5 3.5 7 5s2.5 3 5 3zm0 0s2.5-4.5 5-3-2.5 3-5 3z"/></svg></div><h3>Complimentary setup</h3><p>We transfer your data, fit a screen protector and get you signed in — so you leave ready to go. On the house.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHATSAPP ============================ -->
+<section class="section" id="whatsapp">
+  <div class="wrap">
+    <div class="wa-grid">
+      <div class="wa-copy reveal">
+        <span class="eyebrow">Concierge ordering</span>
+        <h2>Order in minutes on WhatsApp.</h2>
+        <p class="lead">Speak with a real specialist, settle payment with a single M-Pesa prompt, and we handle everything else — as personal as it is simple.</p>
+        <ul class="perks">
+          <li><span class="tick"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span> Ask anything — colour, storage, availability</li>
+          <li><span class="tick"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span> M-Pesa STK-push, no card numbers</li>
+          <li><span class="tick"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span> Live tracking to your door</li>
+        </ul>
+        <a href="#" class="btn btn-wa" id="waCta"><svg class="icon" viewBox="0 0 24 24" fill="#04381f" stroke="none"><path d="M17.6 6.3A7.9 7.9 0 0 0 12 4a8 8 0 0 0-6.9 12L4 20l4.1-1.1A8 8 0 1 0 17.6 6.3zm-5.6 12.2a6.5 6.5 0 0 1-3.3-.9l-.24-.14-2.44.64.65-2.38-.16-.25A6.5 6.5 0 1 1 12 18.5zm3.6-4.87c-.2-.1-1.17-.58-1.35-.64s-.31-.1-.44.1-.5.63-.62.76-.23.15-.43.05a5.3 5.3 0 0 1-1.56-.96 5.9 5.9 0 0 1-1.08-1.35c-.11-.2 0-.3.09-.4l.3-.35c.1-.12.13-.2.2-.34a.37.37 0 0 0 0-.35c0-.1-.44-1.06-.6-1.45s-.32-.33-.44-.33h-.38a.72.72 0 0 0-.52.24 2.2 2.2 0 0 0-.68 1.62 3.8 3.8 0 0 0 .8 2 8.7 8.7 0 0 0 3.34 2.96c.47.2.83.32 1.11.42.47.15.9.13 1.23.08.38-.06 1.17-.48 1.33-.94s.17-.86.12-.94-.18-.15-.38-.25z"/></svg> Chat &amp; order now</a>
+      </div>
+      <div class="reveal d1">
+        <div class="phone-frame" id="chatPhone">
+          <div class="wa-head">
+            <span class="av"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg></span>
+            <div><div class="nm">Hooda Technologies</div><div class="st">online · replies instantly</div></div>
+          </div>
+          <div class="wa-body" id="chatBody" role="log" aria-label="Sample WhatsApp conversation"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg></span><b>HOODA<span class="dot" style="color:#7db2ff">.</span></b></a>
+        <p class="about">Kenya's premium destination for genuine iPhone &amp; Samsung Galaxy. Real devices, real warranties, same-day Nairobi delivery.</p>
+        <div class="pay" aria-label="Accepted payment methods">
+          <span class="p">M-Pesa</span><span class="p">Visa</span><span class="p">Mastercard</span><span class="p">Airtel Money</span>
+        </div>
+      </div>
+      <div class="foot-col"><h4>Shop</h4><a href="#shop">iPhone</a><a href="#shop">Samsung Galaxy</a><a href="#shop">New arrivals</a><a href="#shop">Trade-in</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="#why">Why Hooda</a><a href="#how">How it works</a><a href="#whatsapp">Contact</a><a href="#top">Warranty</a></div>
+      <div class="foot-col"><h4>Visit</h4><a href="#">Moi Avenue, Nairobi CBD</a><a href="#">Mon–Sat, 8am – 7pm</a><a href="#">+254 700 000 000</a><a href="#whatsapp">Message us on WhatsApp</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Hooda Technologies. All rights reserved. Nairobi, Kenya.</span>
+      <span>Genuine devices · IMEI-verified · 1-year warranty</span>
+    </div>
+  </div>
+</footer>
+
+<a href="#whatsapp" class="fab" aria-label="Chat and order on WhatsApp">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M17.6 6.3A7.9 7.9 0 0 0 12 4a8 8 0 0 0-6.9 12L4 20l4.1-1.1A8 8 0 1 0 17.6 6.3zm-5.6 12.2a6.5 6.5 0 0 1-3.3-.9l-.24-.14-2.44.64.65-2.38-.16-.25A6.5 6.5 0 1 1 12 18.5z"/></svg>
+  <span class="txt">Chat &amp; order</span>
+  <span class="fcount" id="fabCount">0</span>
+</a>
+
+<!-- ============================ CART DRAWER ============================ -->
+<div id="cartOverlay"></div>
+<aside id="drawer" aria-label="Shopping bag" aria-hidden="true">
+  <div class="drawer-head">
+    <h3>Your bag <span id="drawerCount"></span></h3>
+    <button class="drawer-close" id="drawerClose" aria-label="Close bag"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot" id="drawerFoot" hidden>
+    <div class="sum-row"><span>Subtotal</span><span id="sumSubtotal">KES 0</span></div>
+    <div class="sum-row"><span>Same-day Nairobi delivery</span><span class="free">Complimentary</span></div>
+    <div class="sum-row total"><span>Total</span><span id="sumTotal">KES 0</span></div>
+    <div class="sum-note"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> Secure M-Pesa STK-push at checkout</div>
+    <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+  </div>
+</aside>
+
+<div id="toast-wrap" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- PHONE SVG RENDERER ----------
+     Original vector device renders — self-contained, crisp at any size.
+     To use licensed product photos instead, replace the returned SVG string
+     with:  '<img src="…/model.png" alt="'+o.label+'" loading="lazy">'          */
+  var _uid = 0;
+  function phoneSVG(o){
+    var id = "d" + (_uid++);
+    var g = o.type === "galaxy";
+    var frameRx = g ? 30 : 46, scrRx = g ? 22 : 36;
+    var cam = g
+      ? '<circle cx="110" cy="30" r="6.2" fill="#050506"/><circle cx="110" cy="30" r="2.6" fill="#13233d"/>'
+      : '<rect x="82" y="24" width="56" height="17" rx="8.5" fill="#050506"/><circle cx="128" cy="32.5" r="3" fill="#12243f"/><circle cx="94" cy="32.5" r="2" fill="#0e1e33"/>';
+    return '<svg viewBox="0 0 220 452" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+(o.label||"Smartphone")+'">'
+      + '<defs>'
+      +   '<linearGradient id="'+id+'f" x1="0" y1="0" x2="1" y2="0">'
+      +     '<stop offset="0" stop-color="#b9b3a8"/><stop offset=".12" stop-color="#f5f3ef"/><stop offset=".5" stop-color="#aca69b"/><stop offset=".87" stop-color="#efece5"/><stop offset="1" stop-color="#a9a398"/>'
+      +   '</linearGradient>'
+      +   '<linearGradient id="'+id+'s" x1="0" y1="0" x2=".65" y2="1">'
+      +     '<stop offset="0" stop-color="'+o.a+'"/><stop offset=".55" stop-color="'+o.b+'"/><stop offset="1" stop-color="'+o.c+'"/>'
+      +   '</linearGradient>'
+      +   '<linearGradient id="'+id+'g" x1="0" y1="0" x2="1" y2="1">'
+      +     '<stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/>'
+      +   '</linearGradient>'
+      + '</defs>'
+      + '<rect x="1.5" y="150" width="3" height="46" rx="1.5" fill="#8b867c"/>'
+      + '<rect x="215.5" y="118" width="3" height="28" rx="1.5" fill="#8b867c"/>'
+      + '<rect x="215.5" y="162" width="3" height="52" rx="1.5" fill="#8b867c"/>'
+      + '<rect x="4" y="4" width="212" height="444" rx="'+frameRx+'" fill="url(#'+id+'f)"/>'
+      + '<rect x="8.5" y="8.5" width="203" height="435" rx="'+(frameRx-4)+'" fill="#050506"/>'
+      + '<rect x="14" y="14" width="192" height="424" rx="'+scrRx+'" fill="url(#'+id+'s)"/>'
+      + '<text x="110" y="118" text-anchor="middle" fill="#fff" fill-opacity=".92" font-family="-apple-system,Segoe UI,sans-serif" font-size="14" font-weight="500">'+(o.date||"Monday, 9 June")+'</text>'
+      + '<text x="110" y="182" text-anchor="middle" fill="#fff" font-family="-apple-system,Segoe UI,sans-serif" font-size="70" font-weight="600" letter-spacing="-3">'+(o.time||"9:41")+'</text>'
+      + (o.mark ? '<text x="110" y="408" text-anchor="middle" fill="#fff" fill-opacity=".8" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" font-weight="600" letter-spacing="1.5">'+o.mark+'</text>' : '')
+      + cam
+      + '<path d="M14 40 Q92 96 206 62 L206 20 Q206 14 200 14 L20 14 Q14 14 14 20 Z" fill="url(#'+id+'g)" opacity=".55"/>'
+      + '</svg>';
+  }
+
+  /* ---------- PRODUCT DATA ---------- */
+  var PRODUCTS = [
+    {name:"iPhone 16 Pro Max", brand:"iphone", price:210000, rating:4.9, badge:"hot", type:"iphone", mark:"iPhone", a:"#1e2647", b:"#3b4574", c:"#6b5b93"},
+    {name:"iPhone 16 Pro",     brand:"iphone", price:175000, rating:4.8, badge:"new", type:"iphone", mark:"iPhone", a:"#241f3a", b:"#463a68", c:"#7a5a86"},
+    {name:"iPhone 16",         brand:"iphone", price:128000, rating:4.7, badge:"new", type:"iphone", mark:"iPhone", a:"#123340", b:"#1f6a72", c:"#3f9e8f"},
+    {name:"iPhone 15",         brand:"iphone", price:99000,  rating:4.6, badge:"",    type:"iphone", mark:"iPhone", a:"#33291f", b:"#7a5a44", c:"#c9926a"},
+    {name:"Galaxy S25 Ultra",  brand:"samsung",price:205000, rating:4.9, badge:"hot", type:"galaxy", mark:"Galaxy", a:"#0c2733", b:"#155a5f", c:"#1f8f8a"},
+    {name:"Galaxy Z Fold6",    brand:"samsung",price:265000, rating:4.8, badge:"new", type:"galaxy", mark:"Galaxy", a:"#181d38", b:"#373d66", c:"#5a5f9e"},
+    {name:"Galaxy S25+",       brand:"samsung",price:158000, rating:4.7, badge:"",    type:"galaxy", mark:"Galaxy", a:"#0f2540", b:"#204f88", c:"#3a80c9"},
+    {name:"Galaxy Z Flip6",    brand:"samsung",price:142000, rating:4.7, badge:"hot", type:"galaxy", mark:"Galaxy", a:"#361230", b:"#772050", c:"#c74f8a"}
+  ];
+
+  function fmt(n){ return "KES " + n.toLocaleString("en-KE"); }
+  function stars(r){ var f=Math.round(r); return "★★★★★".slice(0,f)+"☆☆☆☆☆".slice(0,5-f); }
+
+  /* ---------- RENDER PRODUCTS ---------- */
+  var grid = document.getElementById("grid");
+  (function renderProducts(){
+    var frag = document.createDocumentFragment();
+    PRODUCTS.forEach(function(p,i){
+      var card = document.createElement("article");
+      card.className = "card reveal d" + ((i%4)+1);
+      card.setAttribute("data-brand", p.brand);
+      var badge = p.badge ? '<span class="badge '+p.badge+'">'+(p.badge==="hot"?"Popular":"New")+'</span>' : "";
+      card.innerHTML = badge
+        + '<div class="stagebox">'+phoneSVG(p)+'</div>'
+        + '<div class="brand">'+(p.brand==="iphone"?"Apple":"Samsung")+'</div>'
+        + '<h3>'+p.name+'</h3>'
+        + '<div class="rating"><span class="stars">'+stars(p.rating)+'</span> '+p.rating.toFixed(1)+'</div>'
+        + '<div class="price-row">'
+        +   '<div class="price">'+fmt(p.price)+'<small>M-Pesa ready</small></div>'
+        +   '<button class="add-btn" aria-label="Add '+p.name+' to bag"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg> Add</button>'
+        + '</div>';
+      card.querySelector(".add-btn").addEventListener("click", function(){ addToCart(p); });
+      frag.appendChild(card);
+    });
+    grid.appendChild(frag);
+  })();
+
+  /* ---------- FILTER ---------- */
+  var tabs = document.querySelectorAll(".tab");
+  tabs.forEach(function(tab){
+    tab.addEventListener("click", function(){
+      tabs.forEach(function(t){ t.classList.remove("active"); t.setAttribute("aria-selected","false"); });
+      tab.classList.add("active"); tab.setAttribute("aria-selected","true");
+      var f = tab.getAttribute("data-filter");
+      document.querySelectorAll(".card").forEach(function(c){
+        c.style.display = (f==="all"||c.getAttribute("data-brand")===f) ? "" : "none";
+      });
+    });
+  });
+
+  /* ---------- HERO PHONES ---------- */
+  document.getElementById("phones").innerHTML =
+    '<div class="phone ip">'+phoneSVG({type:"iphone",mark:"iPhone",label:"iPhone 16 Pro Max",time:"9:41",date:"Monday, 9 June",a:"#1e2647",b:"#3b4574",c:"#6b5b93"})+'</div>'
+  + '<div class="phone sg">'+phoneSVG({type:"galaxy",mark:"Galaxy",label:"Galaxy S25 Ultra",time:"12:45",date:"Monday, 9 June",a:"#0c2733",b:"#155a5f",c:"#1f8f8a"})+'</div>';
+
+  /* ---------- MARQUEE ---------- */
+  var perks = ["100% Genuine","IMEI Verified","Same-day Nairobi Delivery","M-Pesa Checkout","1-Year Warranty","Sealed & Boxed","Trade-in Welcome","Complimentary Setup"];
+  var seq = perks.concat(perks);
+  document.getElementById("marquee").innerHTML = seq.map(function(p){
+    return '<span class="marquee-item">'+p+'<span class="sep">◆</span></span>';
+  }).join("");
+
+  /* ---------- CART ---------- */
+  var cart = [];
+  var cartCountEl = document.getElementById("cartCount");
+  var fabCountEl  = document.getElementById("fabCount");
+  var drawer      = document.getElementById("drawer");
+  var overlay     = document.getElementById("cartOverlay");
+  var drawerItems = document.getElementById("drawerItems");
+  var drawerFoot  = document.getElementById("drawerFoot");
+  var drawerCountEl = document.getElementById("drawerCount");
+
+  function cartQty(){ return cart.reduce(function(s,i){return s+i.qty;},0); }
+  function cartTotal(){ return cart.reduce(function(s,i){return s+i.price*i.qty;},0); }
+
+  function addToCart(p){
+    var line = cart.filter(function(i){return i.name===p.name;})[0];
+    if(line){ line.qty++; } else { cart.push({name:p.name, price:p.price, svg:phoneSVG(p), qty:1}); }
+    updateCart(true);
+    toast("Added " + p.name + " to your bag");
+  }
+  function changeQty(name, d){
+    var line = cart.filter(function(i){return i.name===name;})[0];
+    if(!line) return;
+    line.qty += d;
+    if(line.qty<=0) cart = cart.filter(function(i){return i.name!==name;});
+    updateCart(false);
+  }
+  function removeItem(name){ cart = cart.filter(function(i){return i.name!==name;}); updateCart(false); }
+
+  function updateCart(bump){
+    var q = cartQty();
+    cartCountEl.textContent = q; fabCountEl.textContent = q;
+    cartCountEl.classList.toggle("show", q>0);
+    fabCountEl.classList.toggle("show", q>0);
+    if(bump && q>0){ cartCountEl.classList.remove("bump"); void cartCountEl.offsetWidth; cartCountEl.classList.add("bump"); }
+    drawerCountEl.textContent = q ? "· " + q + " item" + (q>1?"s":"") : "";
+
+    if(!cart.length){
+      drawerFoot.hidden = true;
+      drawerItems.innerHTML =
+        '<div class="drawer-empty">'
+        + '<div class="eic"><svg class="icon" viewBox="0 0 24 24"><path d="M6.5 8h11l-.9 11.2a1.5 1.5 0 0 1-1.5 1.4H8.9a1.5 1.5 0 0 1-1.5-1.4L6.5 8z"/><path d="M9 8V6.2a3 3 0 0 1 6 0V8"/></svg></div>'
+        + '<div><strong>Your bag is empty</strong><br>Discover a genuine flagship.</div>'
+        + '<button class="btn btn-primary" id="emptyShop">Browse phones</button>'
+        + '</div>';
+      drawerItems.querySelector("#emptyShop").addEventListener("click", function(){ closeCart(); location.hash="#shop"; });
+      return;
+    }
+    drawerFoot.hidden = false;
+    drawerItems.innerHTML = cart.map(function(i){
+      return '<div class="ci">'
+        + '<div class="thumb">'+i.svg+'</div>'
+        + '<div class="info"><h4>'+i.name+'</h4><div class="pr">'+fmt(i.price)+'</div>'
+        +   '<div class="qty"><button data-act="dec" data-name="'+i.name+'" aria-label="Decrease quantity of '+i.name+'">−</button><span>'+i.qty+'</span><button data-act="inc" data-name="'+i.name+'" aria-label="Increase quantity of '+i.name+'">+</button></div>'
+        + '</div>'
+        + '<div class="right"><button class="rm" data-act="rm" data-name="'+i.name+'" aria-label="Remove '+i.name+'"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M6 7l1 12.5A1.5 1.5 0 0 0 8.5 21h7a1.5 1.5 0 0 0 1.5-1.5L18 7"/></svg></button><div class="lt">'+fmt(i.price*i.qty)+'</div></div>'
+        + '</div>';
+    }).join("");
+    document.getElementById("sumSubtotal").textContent = fmt(cartTotal());
+    document.getElementById("sumTotal").textContent = fmt(cartTotal());
+  }
+
+  drawerItems.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-act]"); if(!btn) return;
+    var name = btn.getAttribute("data-name"), act = btn.getAttribute("data-act");
+    if(act==="inc") changeQty(name,1); else if(act==="dec") changeQty(name,-1); else if(act==="rm") removeItem(name);
+  });
+
+  /* ---------- DRAWER OPEN/CLOSE ---------- */
+  var lastFocus = null;
+  function openCart(){
+    lastFocus = document.activeElement;
+    drawer.classList.add("open"); overlay.classList.add("open");
+    drawer.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+    document.getElementById("drawerClose").focus();
+  }
+  function closeCart(){
+    drawer.classList.remove("open"); overlay.classList.remove("open");
+    drawer.setAttribute("aria-hidden","true"); document.body.style.overflow="";
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.getElementById("cartBtn").addEventListener("click", openCart);
+  document.getElementById("drawerClose").addEventListener("click", closeCart);
+  overlay.addEventListener("click", closeCart);
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape" && drawer.classList.contains("open")) closeCart(); });
+  document.getElementById("checkoutBtn").addEventListener("click", function(){
+    toast("Order placed — confirm the M-Pesa prompt on your phone");
+  });
+  updateCart(false);
+
+  /* ---------- TOAST ---------- */
+  var toastWrap = document.getElementById("toast-wrap");
+  function toast(msg){
+    var t = document.createElement("div");
+    t.className = "toast";
+    t.innerHTML = '<span class="tk"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span><span>'+msg+'</span>';
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){ t.classList.add("show"); });
+    setTimeout(function(){ t.classList.remove("show"); setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); }, 420); }, 2700);
+  }
+  document.getElementById("waCta").addEventListener("click", function(e){ e.preventDefault(); toast("Opening WhatsApp — say hello and we'll help you choose"); });
+
+  /* ---------- SCROLL PROGRESS ---------- */
+  var progress = document.getElementById("progress");
+  window.addEventListener("scroll", function(){
+    var h = document.documentElement;
+    progress.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100) + "%";
+  }, {passive:true});
+
+  /* ---------- COUNT-UP ---------- */
+  function countUp(el){
+    if(el.dataset.done) return; el.dataset.done="1";
+    var target = parseInt(el.getAttribute("data-count"),10), suffix = el.getAttribute("data-suffix")||"";
+    if(reduceMotion){ el.textContent = target.toLocaleString("en-KE")+suffix; return; }
+    var dur=1600, start=performance.now();
+    (function tick(now){
+      var p = Math.min(1,(now-start)/dur), eased = 1-Math.pow(1-p,3);
+      el.textContent = Math.floor(eased*target).toLocaleString("en-KE")+suffix;
+      if(p<1) requestAnimationFrame(tick); else el.textContent = target.toLocaleString("en-KE")+suffix;
+    })(start);
+  }
+
+  /* ---------- OBSERVERS ---------- */
+  if("IntersectionObserver" in window){
+    var revObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); revObs.unobserve(en.target); } });
+    }, {threshold:.14, rootMargin:"0px 0px -40px 0px"});
+    document.querySelectorAll(".reveal").forEach(function(el){ revObs.observe(el); });
+
+    var numObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ countUp(en.target); numObs.unobserve(en.target); } });
+    }, {threshold:.5});
+    document.querySelectorAll(".num[data-count]").forEach(function(el){ numObs.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+    document.querySelectorAll(".num[data-count]").forEach(countUp);
+  }
+
+  /* ---------- HERO 3D PARALLAX ---------- */
+  var stage = document.getElementById("stage"), phones = document.getElementById("phones");
+  if(stage && phones && !reduceMotion){
+    var raf=null, tx=0, ty=0;
+    stage.addEventListener("mousemove", function(e){
+      var r = stage.getBoundingClientRect();
+      tx = ((e.clientX-r.left)/r.width-.5)*18;
+      ty = -((e.clientY-r.top)/r.height-.5)*18;
+      if(!raf) raf = requestAnimationFrame(apply);
+    });
+    stage.addEventListener("mouseleave", function(){ tx=0; ty=0; if(!raf) raf=requestAnimationFrame(apply); });
+    function apply(){ raf=null; phones.style.transform = "rotateY("+tx+"deg) rotateX("+ty+"deg)"; }
+  }
+
+  /* ---------- WHATSAPP CHAT ---------- */
+  var chatBody = document.getElementById("chatBody");
+  var SCRIPT = [
+    {who:"them", text:"Karibu Hooda. Looking for a genuine phone today?", delay:400},
+    {who:"me",   text:"Yes — is the iPhone 16 Pro Max in stock?", delay:1200},
+    {who:"them", text:"It is. Sealed & IMEI-verified — KES 210,000.", delay:1400},
+    {who:"me",   text:"Perfect. Can I pay by M-Pesa?", delay:1150},
+    {who:"them", text:"Of course. Sending an STK-push now.", delay:1300},
+    {who:"me",   text:"Done — payment confirmed.", delay:1150},
+    {who:"them", text:"Asante! Packing it now — same-day delivery.", delay:1400}
+  ];
+  var chatStarted = false;
+  function mkMsg(m){
+    var el = document.createElement("div"); el.className = "msg " + m.who;
+    var now = new Date(), hh=String(now.getHours()).padStart(2,"0"), mm=String(now.getMinutes()).padStart(2,"0");
+    el.innerHTML = m.text + '<span class="t">'+hh+':'+mm+(m.who==="me"?" ✓✓":"")+'</span>';
+    chatBody.appendChild(el); return el;
+  }
+  function playChat(){
+    if(chatStarted) return; chatStarted = true;
+    if(reduceMotion){ SCRIPT.forEach(function(m){ mkMsg(m).classList.add("show"); }); return; }
+    var typing = document.createElement("div"); typing.className="typing"; typing.innerHTML="<i></i><i></i><i></i>";
+    var t = 300;
+    SCRIPT.forEach(function(m){
+      t += m.delay;
+      if(m.who==="them"){ (function(tt){ setTimeout(function(){ chatBody.appendChild(typing); typing.classList.add("show"); chatBody.scrollTop=chatBody.scrollHeight; }, tt-500); })(t); }
+      (function(tt,msg){ setTimeout(function(){
+        if(msg.who==="them" && typing.parentNode) typing.classList.remove("show");
+        var el = mkMsg(msg); requestAnimationFrame(function(){ el.classList.add("show"); });
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, tt); })(t, m);
+    });
+  }
+  if("IntersectionObserver" in window){
+    var chatObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ playChat(); chatObs.unobserve(en.target); } });
+    }, {threshold:.4});
+    chatObs.observe(document.getElementById("chatPhone"));
+  } else { playChat(); }
+
+  /* ---------- MOBILE NAV ---------- */
+  var navToggle = document.getElementById("navToggle"), navLinks = document.querySelector(".nav-links");
+  navToggle.addEventListener("click", function(){
+    var open = navLinks.style.display === "flex";
+    if(open){ navLinks.style.display=""; navToggle.setAttribute("aria-expanded","false"); }
+    else{
+      navLinks.style.cssText = "display:flex;position:absolute;top:56px;left:0;right:0;flex-direction:column;gap:4px;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);padding:14px 5vw 20px;margin:0;border-bottom:1px solid var(--line);box-shadow:var(--shadow-sm)";
+      navToggle.setAttribute("aria-expanded","true");
+    }
+  });
+  navLinks.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){ if(window.innerWidth<=980){ navLinks.style.display=""; navToggle.setAttribute("aria-expanded","false"); } });
+  });
+})();
+</script>
+</body>
+</html>
