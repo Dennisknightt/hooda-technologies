@@ -121,28 +121,30 @@
   /* ============================ HERO ============================ */
   .hero{
     background:radial-gradient(120% 90% at 50% -10%,#20202b 0%,#0c0c11 46%,#050507 100%);
-    color:#f5f5f7;overflow:hidden;padding:clamp(64px,8vw,104px) 0 clamp(50px,7vw,92px);
+    color:#f5f5f7;overflow:hidden;padding:clamp(24px,4vh,52px) 0;
+    min-height:calc(100vh - 56px);min-height:calc(100svh - 56px);
+    display:flex;align-items:center;justify-content:center;
   }
   .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 40% at 72% 42%,rgba(0,113,227,.28),transparent 70%);pointer-events:none}
   .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center;position:relative;z-index:2}
   .hero .eyebrow{color:#7db2ff}
-  .hero h1{font-size:clamp(2.6rem,6.4vw,5rem);letter-spacing:-.04em;font-weight:600;min-height:2.15em}
+  .hero h1{font-size:clamp(2.3rem,5.4vw,4.3rem);letter-spacing:-.04em;font-weight:600;min-height:2.1em}
   .caret{display:inline-block;width:3px;height:.88em;margin-left:3px;border-radius:2px;background:#7db2ff;vertical-align:-.1em;animation:caretBlink 1.05s steps(1) infinite}
   .caret.done{animation:none;opacity:0;transition:opacity .5s}
   @keyframes caretBlink{50%{opacity:0}}
   .hero h1 .shine{
     background:linear-gradient(180deg,#fff,#c9c9d2);-webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .hero p.lead{color:#b4b4be;margin:26px 0 34px;font-size:clamp(1.08rem,1.6vw,1.32rem)}
+  .hero p.lead{color:#b4b4be;margin:16px 0 24px;font-size:clamp(1rem,1.4vw,1.18rem)}
   .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
-  .hero .trust{display:flex;align-items:center;gap:10px;margin-top:26px;color:#a0a0aa;font-size:.92rem}
+  .hero .trust{display:flex;align-items:center;gap:10px;margin-top:18px;color:#a0a0aa;font-size:.9rem}
   .hero .trust .stars{color:var(--gold);letter-spacing:2px}
-  .hero-stats{display:flex;gap:46px;margin-top:44px;flex-wrap:wrap;padding-top:30px;border-top:1px solid rgba(255,255,255,.1)}
+  .hero-stats{display:flex;gap:38px;margin-top:24px;flex-wrap:wrap;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
   .hero-stats .num{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:600;letter-spacing:-.03em;color:#fff}
   .hero-stats .lbl{font-size:.82rem;color:#8f8f99;margin-top:2px;letter-spacing:.01em}
 
   /* hero stage */
-  .stage{position:relative;height:min(600px,84vw);display:grid;place-items:center;perspective:1400px}
+  .stage{position:relative;height:min(500px,64vh,84vw);display:grid;place-items:center;perspective:1400px}
   .glow{position:absolute;width:70%;height:60%;border-radius:50%;background:radial-gradient(circle,rgba(120,140,255,.35),transparent 70%);filter:blur(30px)}
   .orbit{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.08);will-change:transform}
   .orbit.o1{width:400px;height:400px;animation:spin 44s linear infinite}
@@ -427,10 +429,13 @@
 
   /* ============================ RESPONSIVE ============================ */
   @media(max-width:980px){
+    .hero{padding:12px 0 22px}
     .hero-grid{grid-template-columns:1fr;gap:0}
-    .stage{order:-1;height:min(480px,92vw);margin-bottom:10px}
-    .phone svg{width:180px}
-    .phone.ip{left:-100px;top:-192px}.phone.sg{left:-72px;top:-162px}
+    .stage{order:-1;height:min(300px,44vh,78vw);margin-bottom:2px}
+    .phone svg{width:146px}
+    .phone.ip{left:-82px;top:-156px}.phone.sg{left:-58px;top:-132px}
+    .hero h1{min-height:0}
+    .hero-stats{gap:24px;margin-top:16px;padding-top:14px}
     .grid{grid-template-columns:repeat(2,1fr)}
     .steps{grid-template-columns:repeat(2,1fr);gap:36px 24px}
     .step::after{display:none}
@@ -721,7 +726,14 @@
      To use licensed product photos instead, replace the returned SVG string
      with:  '<img src="…/model.png" alt="'+o.label+'" loading="lazy">'          */
   var _uid = 0;
-  function phoneSVG(o){
+  function shade(hex, p){
+    var h = hex.replace("#",""); if(h.length===3){ h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2]; }
+    var r=parseInt(h.substr(0,2),16), g=parseInt(h.substr(2,2),16), b=parseInt(h.substr(4,2),16);
+    function m(v){ v = p<0 ? v*(1+p) : v+(255-v)*p; return Math.max(0,Math.min(255,Math.round(v))); }
+    function hx(v){ return ("0"+v.toString(16)).slice(-2); }
+    return "#"+hx(m(r))+hx(m(g))+hx(m(b));
+  }
+  function phoneSVG(o, bodyColor){
     var id = "d" + (_uid++);
     var g = o.type === "galaxy";
     var frameRx = g ? 30 : 46, scrRx = g ? 22 : 36;
@@ -731,7 +743,9 @@
     return '<svg viewBox="0 0 220 452" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+(o.label||"Smartphone")+'">'
       + '<defs>'
       +   '<linearGradient id="'+id+'f" x1="0" y1="0" x2="1" y2="0">'
-      +     '<stop offset="0" stop-color="#b9b3a8"/><stop offset=".12" stop-color="#f5f3ef"/><stop offset=".5" stop-color="#aca69b"/><stop offset=".87" stop-color="#efece5"/><stop offset="1" stop-color="#a9a398"/>'
+      +   (bodyColor
+          ? '<stop offset="0" stop-color="'+shade(bodyColor,-.3)+'"/><stop offset=".12" stop-color="'+shade(bodyColor,.44)+'"/><stop offset=".5" stop-color="'+shade(bodyColor,-.08)+'"/><stop offset=".87" stop-color="'+shade(bodyColor,.38)+'"/><stop offset="1" stop-color="'+shade(bodyColor,-.34)+'"/>'
+          : '<stop offset="0" stop-color="#b9b3a8"/><stop offset=".12" stop-color="#f5f3ef"/><stop offset=".5" stop-color="#aca69b"/><stop offset=".87" stop-color="#efece5"/><stop offset="1" stop-color="#a9a398"/>')
       +   '</linearGradient>'
       +   '<linearGradient id="'+id+'s" x1="0" y1="0" x2=".65" y2="1">'
       +     '<stop offset="0" stop-color="'+o.a+'"/><stop offset=".55" stop-color="'+o.b+'"/><stop offset="1" stop-color="'+o.c+'"/>'
@@ -744,8 +758,8 @@
       + '<rect x="215.5" y="118" width="3" height="28" rx="1.5" fill="#8b867c"/>'
       + '<rect x="215.5" y="162" width="3" height="52" rx="1.5" fill="#8b867c"/>'
       + '<rect x="4" y="4" width="212" height="444" rx="'+frameRx+'" fill="url(#'+id+'f)"/>'
-      + '<rect x="8.5" y="8.5" width="203" height="435" rx="'+(frameRx-4)+'" fill="#050506"/>'
-      + '<rect x="14" y="14" width="192" height="424" rx="'+scrRx+'" fill="url(#'+id+'s)"/>'
+      + '<rect x="10" y="10" width="200" height="432" rx="'+(frameRx-5)+'" fill="#050506"/>'
+      + '<rect x="15" y="15" width="190" height="422" rx="'+scrRx+'" fill="url(#'+id+'s)"/>'
       + '<text x="110" y="118" text-anchor="middle" fill="#fff" fill-opacity=".92" font-family="-apple-system,Segoe UI,sans-serif" font-size="14" font-weight="500">'+(o.date||"Monday, 9 June")+'</text>'
       + '<text x="110" y="182" text-anchor="middle" fill="#fff" font-family="-apple-system,Segoe UI,sans-serif" font-size="70" font-weight="600" letter-spacing="-3">'+(o.time||"9:41")+'</text>'
       + (o.mark ? '<text x="110" y="408" text-anchor="middle" fill="#fff" fill-opacity=".8" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" font-weight="600" letter-spacing="1.5">'+o.mark+'</text>' : '')
@@ -1006,9 +1020,12 @@
     document.getElementById("qvPrice").innerHTML =
       (qvState.off>0 ? '<span class="was">'+fmt(base)+'</span>' : '') + '<span class="now">'+fmt(fin)+'</span>';
   }
+  function renderQvMedia(){
+    document.getElementById("qvMedia").innerHTML = phoneSVG(qvState.p, qvState.p.colors[qvState.color].c);
+  }
   function openQuickview(p, off){
     qvState = {p:p, off:off||0, storage:0, color:0};
-    document.getElementById("qvMedia").innerHTML = phoneSVG(p);
+    renderQvMedia();
     document.getElementById("qvBrand").textContent = p.brand==="iphone" ? "Apple" : "Samsung";
     document.getElementById("qvName").textContent = p.name;
     document.getElementById("qvRating").innerHTML = '<span class="stars">'+stars(p.rating)+'</span> '+p.rating.toFixed(1)+' rating';
@@ -1040,6 +1057,7 @@
     this.querySelectorAll(".qv-swatch").forEach(function(x){ x.classList.remove("sel"); });
     b.classList.add("sel");
     document.getElementById("qvColorName").textContent = qvState.p.colors[qvState.color].n;
+    renderQvMedia();
   });
   document.getElementById("qvStorages").addEventListener("click", function(e){
     var b=e.target.closest(".qv-store"); if(!b) return;
@@ -1050,7 +1068,7 @@
   });
   document.getElementById("qvAdd").addEventListener("click", function(){
     var p=qvState.p, st=p.storages[qvState.storage], col=p.colors[qvState.color];
-    addLine(p.name+" · "+st.s+" · "+col.n, qvFinal(qvBase()), phoneSVG(p));
+    addLine(p.name+" · "+st.s+" · "+col.n, qvFinal(qvBase()), phoneSVG(p, col.c));
     closeQuickview(); openCart();
   });
   document.getElementById("qvClose").addEventListener("click", closeQuickview);
