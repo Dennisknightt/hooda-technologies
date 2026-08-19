@@ -294,7 +294,7 @@
   };
 
   /* ============ STORE ============ */
-  var KEY = "hooda_portal_v2";
+  var KEY = "hooda_portal_v3";
   var bc = null;
   try{ if("BroadcastChannel" in window) bc = new BroadcastChannel("hooda_portal2"); }catch(e){ bc = null; }
 
@@ -326,12 +326,15 @@
     var pays = ["M-Pesa","M-Pesa","M-Pesa","M-Pesa","Cash","Card","Airtel Money"];
     var statuses = ["Delivered","Delivered","Delivered","Delivered","Packing","Out for delivery","New"];
     var orders = [], id = 1000, now = Date.now();
+    var startToday = new Date(); startToday.setHours(0,0,0,0); startToday = startToday.getTime();
     for(var d=29; d>=0; d--){
+      var dayStart = startToday - d*86400000;
+      var span = d===0 ? Math.max(now - dayStart, 3600000) : 86400000; // today: only midnight→now
       var per = 2 + Math.floor(Math.random()*4);
       for(var k=0;k<per;k++){
         var p = products[weightedIndex(weights)];
         var qty = Math.random()>.86 ? 2 : 1;
-        var ts = now - d*86400000 - Math.floor(Math.random()*86400000);
+        var ts = dayStart + Math.floor(Math.random()*span);
         var src = pick(sources);
         var order = {
           id:"HD-"+(id++), ts:ts,
